@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import './EPIC.css';
 
 function EPIC() {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/epic')
-      .then(res => {
+    axios
+      .get('http://localhost:5000/epic')
+      .then((res) => {
         setImages(res.data || []);
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('EPIC fetch error:', err);
         setLoading(false);
       });
@@ -23,18 +25,29 @@ function EPIC() {
   };
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h2>🌍 EPIC Earth Views</h2>
-      {loading && <p>Loading...</p>}
-      {!loading && images.length === 0 && <p>No EPIC images found.</p>}
+    <div className="epic-page">
+      {/* 🔭 Cosmic Background */}
+      <img src="/bg.jpg" alt="space background" className="epic-bg" />
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1rem' }}>
-        {images.slice(0, 12).map((img) => (
-          <div key={img.identifier} style={{ background: '#000', padding: '1rem', borderRadius: '10px' }}>
-            <img src={buildImageUrl(img)} alt="EPIC Earth" style={{ width: '100%' }} />
-            <p>{img.date}</p>
-          </div>
-        ))}
+      {/* 🔮 Foreground UI */}
+      <div className="epic-content">
+        <h1 className="epic-title">🌍 EPIC Earth Views</h1>
+
+        {loading && <p className="epic-loading">🚀 Syncing with Earth's low orbit sensors...</p>}
+        {!loading && images.length === 0 && (
+          <p className="epic-empty">🛰️ No images from this timeline detected.</p>
+        )}
+
+        <div className="epic-grid">
+          {images.slice(0, 12).map((img) => (
+            <div key={img.identifier} className="epic-card">
+              <div className="epic-card-border">
+                <img src={buildImageUrl(img)} alt="EPIC Earth" className="epic-img" />
+              </div>
+              <p className="epic-date">{new Date(img.date).toUTCString()}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

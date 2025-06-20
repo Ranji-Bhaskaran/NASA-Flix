@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import './MarsRover.css';
 
 const placeholderImg = 'https://via.placeholder.com/400x300?text=No+Image';
 
@@ -11,7 +12,6 @@ function MarsRover() {
   const [loading, setLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState(20);
 
-  // Reset sol on rover change for safer results
   useEffect(() => {
     if (rover === 'curiosity') setSol(1000);
     if (rover === 'opportunity') setSol(1000);
@@ -42,25 +42,21 @@ function MarsRover() {
   }, [rover, sol, camera]);
 
   return (
-    <div className="min-h-screen px-6 py-10 bg-[#141414] text-white">
-      <h2 className="text-4xl font-bold text-red-500 mb-8 text-center">🛰️ Mars Rover Gallery</h2>
+    <div className="mars-container">
+      <h2 className="mars-title">🪐 Mars Rover Image Vault</h2>
 
       {/* Filters */}
-      <div className="flex flex-wrap justify-center gap-6 mb-10">
-        <label className="flex flex-col text-sm">
+      <div className="mars-filters">
+        <label>
           Rover
-          <select
-            value={rover}
-            onChange={(e) => setRover(e.target.value)}
-            className="bg-black border border-gray-700 px-2 py-1 rounded text-white"
-          >
+          <select value={rover} onChange={(e) => setRover(e.target.value)}>
             <option value="curiosity">Curiosity</option>
             <option value="opportunity">Opportunity</option>
             <option value="spirit">Spirit</option>
           </select>
         </label>
 
-        <label className="flex flex-col text-sm">
+        <label>
           Sol (Martian Day)
           <input
             type="number"
@@ -68,17 +64,12 @@ function MarsRover() {
             onChange={(e) => setSol(Number(e.target.value))}
             min="0"
             max="5000"
-            className="bg-black border border-gray-700 px-2 py-1 rounded text-white"
           />
         </label>
 
-        <label className="flex flex-col text-sm">
+        <label>
           Camera
-          <select
-            value={camera}
-            onChange={(e) => setCamera(e.target.value)}
-            className="bg-black border border-gray-700 px-2 py-1 rounded text-white"
-          >
+          <select value={camera} onChange={(e) => setCamera(e.target.value)}>
             <option value="">All</option>
             <option value="FHAZ">Front Hazard</option>
             <option value="RHAZ">Rear Hazard</option>
@@ -90,36 +81,38 @@ function MarsRover() {
         </label>
       </div>
 
-      {/* Loading / No results */}
-      {loading && <p className="text-center text-gray-400">Loading photos...</p>}
+      {loading && <p className="mars-loading">🚧 Calibrating cosmic feed...</p>}
+
       {!loading && photos.length === 0 && (
-        <p className="text-center text-gray-400">
-          No photos found for Sol {sol} {camera && `with ${camera}`} on{' '}
-          {rover.charAt(0).toUpperCase() + rover.slice(1)}.
-        </p>
+        <div className="mars-empty">
+          <img
+            src={placeholderImg}
+            alt="No images found"
+            className="w-72 h-56 object-contain opacity-60 mb-4"
+          />
+          <p>
+            🛸 No signals from {rover.charAt(0).toUpperCase() + rover.slice(1)} on Sol {sol}{' '}
+            {camera && `with ${camera}`}.
+          </p>
+        </div>
       )}
 
-      {/* Gallery */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+      {/* Image Grid */}
+      <div className="mars-gallery">
         {photos.slice(0, visibleCount).map((photo) => (
-          <div
-            key={photo.id}
-            className="bg-[#1f1f1f] p-3 rounded-lg shadow-md hover:shadow-red-500 transition group"
-          >
-            <div className="overflow-hidden rounded">
-              <img
-                src={photo.img_src.replace('http://', 'https://')}
-                alt={`Rover ${photo.rover.name}`}
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = placeholderImg;
-                }}
-                className="w-full h-48 object-cover rounded transition duration-300 group-hover:scale-105"
-              />
-            </div>
-            <div className="mt-3 text-sm">
-              <p className="font-semibold">{photo.camera.full_name}</p>
-              <p className="text-xs text-gray-400">{photo.earth_date}</p>
+          <div key={photo.id} className="mars-card">
+            <img
+              src={photo.img_src.replace('http://', 'https://')}
+              alt={`Rover ${photo.rover.name}`}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = placeholderImg;
+              }}
+              className="mars-img"
+            />
+            <div className="mars-meta">
+              <p className="mars-camera">{photo.camera.full_name}</p>
+              <p className="mars-date">{photo.earth_date}</p>
             </div>
           </div>
         ))}
@@ -127,12 +120,9 @@ function MarsRover() {
 
       {/* Load More */}
       {!loading && visibleCount < photos.length && (
-        <div className="flex justify-center mt-10">
-          <button
-            onClick={() => setVisibleCount(visibleCount + 20)}
-            className="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition"
-          >
-            Load More
+        <div className="mars-load">
+          <button onClick={() => setVisibleCount(visibleCount + 20)}>
+            Load More Stardust
           </button>
         </div>
       )}

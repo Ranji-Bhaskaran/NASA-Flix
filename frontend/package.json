@@ -10,11 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@splinetool/react-spline": "^4.0.0",
     "axios": "^1.10.0",
+    "framer-motion": "^12.18.1",
+    "lottie-react": "^2.4.1",
+    "lucide-react": "^0.517.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.2",
-    "recharts": "^2.15.3"
+    "react-tsparticles": "^2.12.2",
+    "recharts": "^2.15.3",
+    "vanilla-tilt": "^1.8.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

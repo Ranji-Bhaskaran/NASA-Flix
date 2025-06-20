@@ -1,0 +1,118 @@
+.apod-container {
+  background: url('/bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  padding: 3rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffffff;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.apod-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.apod-title {
+  font-size: 3rem;
+  font-weight: bold;
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glowTitle 3s ease-in-out infinite alternate;
+}
+
+@keyframes glowTitle {
+  from {
+    text-shadow: 0 0 10px #ff416c;
+  }
+  to {
+    text-shadow: 0 0 25px #ff4b2b;
+  }
+}
+
+.apod-date-picker {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+
+.apod-date-picker:hover {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px #ff416c;
+  cursor: pointer;
+}
+
+.apod-card {
+  width: 100%;
+  max-width: 850px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+  animation: fadeIn 1.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.apod-loading {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #ddd;
+}
+
+.apod-content {
+  text-align: center;
+}
+
+.apod-media-title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+  text-shadow: 0 0 10px #ff4b2b;
+}
+
+.apod-date {
+  font-style: italic;
+  color: #ccc;
+  margin-bottom: 1rem;
+}
+
+.apod-media {
+  margin: 1.5rem 0;
+}
+
+.apod-image,
+.apod-video {
+  max-width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.apod-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-top: 1.5rem;
+  color: #e0e0e0;
+  text-align: justify;
+}
+
+

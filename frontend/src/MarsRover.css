@@ -1,0 +1,153 @@
+.mars-container {
+  background: url('/bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  padding: 3rem 1.5rem;
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  min-height: 100vh;
+}
+
+.mars-title {
+  text-align: center;
+  font-size: 2.8rem;
+  color: #00ffe0;
+  text-shadow: 0 0 15px #00ffe0, 0 0 30px #ff00ff;
+  margin-bottom: 2.5rem;
+  animation: pulse-title 2s infinite alternate ease-in-out;
+}
+
+@keyframes pulse-title {
+  from { transform: scale(1); }
+  to   { transform: scale(1.03); }
+}
+
+.mars-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.mars-filters label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+  color: #ccc;
+}
+
+.mars-filters select,
+.mars-filters input {
+  margin-top: 0.4rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  backdrop-filter: blur(5px);
+  font-family: inherit;
+  transition: 0.3s ease;
+}
+
+.mars-filters select:hover,
+.mars-filters input:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.mars-loading,
+.mars-empty {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #aaa;
+  margin-bottom: 2rem;
+}
+
+.mars-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 2rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.mars-card {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 12px rgba(255, 0, 255, 0.2);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.mars-card:hover {
+  transform: scale(1.03) rotateZ(0.5deg);
+  box-shadow: 0 0 24px #ff0077, 0 0 40px #00ffe0;
+}
+
+.mars-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: 0.3s ease;
+}
+
+.mars-meta {
+  padding: 0.8rem 1rem;
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(2px);
+}
+
+.mars-camera {
+  font-weight: bold;
+  color: #fff;
+}
+
+.mars-date {
+  color: #aaa;
+  font-size: 0.75rem;
+}
+
+.mars-load {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.mars-load button {
+  background: linear-gradient(to right, #ff0077, #00ffee);
+  color: black;
+  font-weight: bold;
+  padding: 0.8rem 1.6rem;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 12px #ff0077;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mars-load button:hover {
+  box-shadow: 0 0 20px #00ffee, 0 0 30px #ff0077;
+  transform: scale(1.05);
+}
+.mars-filters select,
+.mars-filters input {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem;
+  font-family: inherit;
+  appearance: none;
+}
+
+/* 💡 Improve the expanded option style on WebKit/Blink */
+.mars-filters select:focus {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* Force light options for better readability on dropdown */
+select option {
+  background-color: #111;
+  color: #fff;
+}
