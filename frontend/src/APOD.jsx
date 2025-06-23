@@ -10,13 +10,13 @@ function APOD() {
   const fetchAPOD = (selectedDate = '') => {
     setLoading(true);
     axios
-      .get(`http://localhost:5000/apod${selectedDate ? `?date=${selectedDate}` : ''}`)
+      .get(`${import.meta.env.VITE_API_BASE_URL}/apod${selectedDate ? `?date=${selectedDate}` : ''}`)
       .then((res) => {
         setApod(res.data);
         setLoading(false);
       })
       .catch((err) => {
-        console.error('Error:', err);
+        console.error('Error fetching APOD:', err);
         setLoading(false);
       });
   };

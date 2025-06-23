@@ -8,7 +8,7 @@ function EPIC() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/epic')
+      .get(`${import.meta.env.VITE_API_BASE_URL}/epic`)
       .then((res) => {
         setImages(res.data || []);
         setLoading(false);

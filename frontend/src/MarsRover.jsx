@@ -21,11 +21,7 @@ function MarsRover() {
   const fetchPhotos = () => {
     setLoading(true);
     axios
-      .get(
-        `http://localhost:5000/mars-photos?rover=${rover}&sol=${sol}${
-          camera ? `&camera=${camera}` : ''
-        }`
-      )
+      .get(`${import.meta.env.VITE_API_BASE_URL}/mars-photos?rover=${rover}&sol=${sol}${camera ? `&camera=${camera}` : ''}`)
       .then((res) => {
         setPhotos(res.data.photos || []);
         setVisibleCount(20);

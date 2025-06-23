@@ -10,7 +10,14 @@ function NEO() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/neo?start_date=2024-05-01&end_date=2024-05-07')
+    const today = new Date();
+    const endDate = today.toISOString().split('T')[0];
+
+    const past = new Date();
+    past.setDate(today.getDate() - 7);
+    const startDate = past.toISOString().split('T')[0];
+
+    axios.get(`${import.meta.env.VITE_API_BASE_URL}/neo?start_date=${startDate}&end_date=${endDate}`)
       .then(res => {
         const raw = res.data.near_earth_objects;
         if (!raw) {
