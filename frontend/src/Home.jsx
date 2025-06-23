@@ -22,12 +22,11 @@ function Home() {
         className="absolute inset-0 w-full h-full object-cover blur-sm brightness-[.35] z-0 opacity-60"
       /> */}
 
-      {/* ✅ Spline 3D Layer - now on top of image */}
-      <div className="absolute inset-0 z-10 opacity-60 pointer-events-none">
+
+      <div className="fixed top-0 left-0 w-full h-full z-10 opacity-60 pointer-events-none">
         <Spline scene="https://prod.spline.design/8lTazHlUkEZV2qI2/scene.splinecode" />
       </div>
 
-      {/* ✨ Particle Overlay */}
       <Particles
         className="absolute inset-0 z-20"
         options={{
