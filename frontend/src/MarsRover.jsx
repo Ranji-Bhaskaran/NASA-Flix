@@ -12,6 +12,12 @@ function MarsRover() {
   const [loading, setLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState(20);
 
+  const supportedCameras = {
+    curiosity: ['FHAZ', 'RHAZ', 'NAVCAM', 'MAST', 'CHEMCAM'],
+    opportunity: ['FHAZ', 'RHAZ', 'NAVCAM', 'PANCAM'],
+    spirit: ['FHAZ', 'RHAZ', 'NAVCAM', 'PANCAM'],
+  };
+
   useEffect(() => {
     if (rover === 'curiosity') setSol(1000);
     if (rover === 'opportunity') setSol(1000);
@@ -20,15 +26,19 @@ function MarsRover() {
 
   const fetchPhotos = () => {
     setLoading(true);
-    axios
-      .get(`${import.meta.env.VITE_API_BASE_URL}/mars-photos?rover=${rover}&sol=${sol}${camera ? `&camera=${camera}` : ''}`)
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
+    const query = `${baseUrl}/mars-photos?rover=${rover}&sol=${sol}${camera ? `&camera=${camera}` : ''}`;
+
+    axios.get(query)
       .then((res) => {
-        setPhotos(res.data.photos || []);
+        const resultPhotos = res.data?.photos || [];
+        setPhotos(resultPhotos);
         setVisibleCount(20);
         setLoading(false);
       })
       .catch((err) => {
         console.error('Error fetching Mars photos:', err);
+        setPhotos([]);
         setLoading(false);
       });
   };
@@ -45,7 +55,7 @@ function MarsRover() {
       <div className="mars-filters">
         <label>
           Rover
-          <select value={rover} onChange={(e) => setRover(e.target.value)}>
+          <select value={rover} onChange={(e) => { setRover(e.target.value); setCamera(''); }}>
             <option value="curiosity">Curiosity</option>
             <option value="opportunity">Opportunity</option>
             <option value="spirit">Spirit</option>
@@ -67,38 +77,30 @@ function MarsRover() {
           Camera
           <select value={camera} onChange={(e) => setCamera(e.target.value)}>
             <option value="">All</option>
-            <option value="FHAZ">Front Hazard</option>
-            <option value="RHAZ">Rear Hazard</option>
-            <option value="NAVCAM">Navcam</option>
-            <option value="MAST">Mastcam</option>
-            <option value="CHEMCAM">ChemCam</option>
-            <option value="PANCAM">PanCam</option>
+            {supportedCameras[rover].map((cam) => (
+              <option key={cam} value={cam}>{cam}</option>
+            ))}
           </select>
         </label>
       </div>
 
+      {/* Loading */}
       {loading && <p className="mars-loading">🚧 Calibrating cosmic feed...</p>}
 
+      {/* No results */}
       {!loading && photos.length === 0 && (
         <div className="mars-empty">
-          <img
-            src={placeholderImg}
-            alt="No images found"
-            className="w-72 h-56 object-contain opacity-60 mb-4"
-          />
-          <p>
-            🛸 No signals from {rover.charAt(0).toUpperCase() + rover.slice(1)} on Sol {sol}{' '}
-            {camera && `with ${camera}`}.
-          </p>
+          <img src={placeholderImg} alt="No images found" className="w-72 h-56 object-contain opacity-60 mb-4" />
+          <p>🛸 No signals from {rover.charAt(0).toUpperCase() + rover.slice(1)} on Sol {sol} {camera && `with ${camera}`}</p>
         </div>
       )}
 
-      {/* Image Grid */}
+      {/* Images */}
       <div className="mars-gallery">
         {photos.slice(0, visibleCount).map((photo) => (
           <div key={photo.id} className="mars-card">
             <img
-              src={photo.img_src.replace('http://', 'https://')}
+              src={photo.img_src.replace(/^http:\/\//i, 'https://')}
               alt={`Rover ${photo.rover.name}`}
               onError={(e) => {
                 e.target.onerror = null;

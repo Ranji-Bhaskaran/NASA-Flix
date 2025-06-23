@@ -13,9 +13,8 @@ app.get('/', (req, res) => {
   res.send('NASA API Backend is running!');
 });
 
-// Example route for NASA APOD (Astronomy Picture of the Day)
 app.get('/apod', async (req, res) => {
-  const date = req.query.date; // format: YYYY-MM-DD
+  const date = req.query.date;
   const url = `https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_API_KEY}` + (date ? `&date=${date}` : '');
 
   try {
@@ -28,11 +27,16 @@ app.get('/apod', async (req, res) => {
 });
 
 app.get('/mars-photos', async (req, res) => {
-  const { rover = 'curiosity', sol = 1000 } = req.query;
+  const { rover = 'curiosity', sol = 1000, camera } = req.query;
 
-  const url = `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${sol}&api_key=${process.env.NASA_API_KEY}`;
+  let url = `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?sol=${sol}&api_key=${process.env.NASA_API_KEY}`;
+  
+  if (camera) {
+    url += `&camera=${camera}`;
+  }
 
   try {
+    console.log('🚀 Fetching:', url);
     const response = await axios.get(url);
     res.json(response.data);
   } catch (error) {
@@ -40,6 +44,7 @@ app.get('/mars-photos', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch Mars photos' });
   }
 });
+
 
 app.get('/epic', async (req, res) => {
   try {
