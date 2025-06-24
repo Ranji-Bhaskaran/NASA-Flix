@@ -45,11 +45,11 @@
 
 ---
 
-## ⚙️ Installation
-
-### 1. Clone the Repository
-
-```bash
+⚙️ Installation
+1. Clone the Repository
+bash
+Copy
+Edit
 git clone https://github.com/yourusername/nasaflix.git
 cd nasaflix
 2. Backend Setup
@@ -78,7 +78,7 @@ Backend: Render
 Note: Ensure your backend CORS policy allows your frontend domain.
 
 📁 Project Structure
-arduino
+plaintext
 Copy
 Edit
 ├── backend/
@@ -93,12 +93,17 @@ Edit
 │   │   └── App.jsx
 │   └── tailwind.config.js
 └── README.md
-Features
- 1. Filter options (camera, sol, rover)
- 2. Ambient background space music with mute toggle
- 3. Spline 3D and particle effects
- 4. Chart.js visualizations for NEOs
- 5. Fully mobile responsive layout
+🎁 Features
+Filter options (camera, sol, rover)
+
+Ambient background space music with mute toggle
+
+Spline 3D and particle effects
+
+Chart.js visualizations for NEOs
+
+Fully mobile responsive layout
 
 📞 Contact
 For questions or collaboration, feel free to open an issue on GitHub.
+
