@@ -43,9 +43,65 @@
 | Spline 3D      |               |
 | Recharts       |               |
 
+---
 
-⚙️ Installation
-1. Clone the Repository
+## ⚙️ Installation
 
+### 1. Clone the Repository
+
+```bash
 git clone https://github.com/yourusername/nasaflix.git
 cd nasaflix
+```
+
+2. Backend Setup
+```bash
+cd backend
+npm install
+# Add your NASA API key
+echo "NASA_API_KEY=your_api_key_here" > .env
+npm run dev
+```
+3. Frontend Setup
+```bash
+cd frontend
+npm install
+npm run dev
+```
+##🌐 Deployment
+1. Frontend: Vercel
+2. Backend: Render
+
+Note: Ensure your backend CORS policy allows your frontend domain.
+
+📁 Project Structure
+plaintext
+Copy
+Edit
+├── backend/
+│   ├── routes/
+│   ├── controllers/
+│   ├── server.js
+│   └── .env
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   └── App.jsx
+│   └── tailwind.config.js
+└── README.md
+🎁 Features
+Filter options (camera, sol, rover)
+
+Ambient background space music with mute toggle
+
+Spline 3D and particle effects
+
+Chart.js visualizations for NEOs
+
+Fully mobile responsive layout
+
+📞 Contact
+For questions or collaboration, feel free to open an issue on GitHub.
+
+
