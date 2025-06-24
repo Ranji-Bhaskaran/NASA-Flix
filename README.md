@@ -69,7 +69,6 @@ npm install
 npm run dev
 ```
 ---
----
 ## 🌐 Deployment
 1. Frontend: Vercel
 2. Backend: Render
